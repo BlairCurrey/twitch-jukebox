@@ -1,5 +1,6 @@
 /songs
+*__pycache__
 cmus-man.txt
 *.env
 scribbles.py
-vm-notes.txt
+notes.txt

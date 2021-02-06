@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 import socket
-from .cmus_controller import *
+from cmus_controller import *
 
 load_dotenv()
 
@@ -20,17 +20,13 @@ irc.send((  "PASS " + OAUTH + "\n" +
 
 def join_chat():
     loaded = False
-    try:
-        while not loaded:
-            # saves 1024 bytes at a time
-            readbuffer_join = irc.recv(1024).decode()
-            # split into lines and discard last line (empty)
-            for line in readbuffer_join.split('\n')[:-1]:
-                print(line)
-                loaded = check_load_complete(line)
-                return 0
-    except:
-        return 1
+    while not loaded:
+        # saves 1024 bytes at a time
+        readbuffer_join = irc.recv(1024).decode()
+        # split into lines and discard last line (empty)
+        for line in readbuffer_join.split('\n')[:-1]:
+            print(line)
+            loaded = check_load_complete(line)
 
 def check_load_complete(line):
     if 'End of /NAMES list' not in line: return False
@@ -70,3 +66,9 @@ if __name__=="__main__":
                     pause()
                 if message == "play":
                     play()
+                if message[0:4] == "PING" :
+                    # server_addr = message.split()[1]
+                    # irc.send(f'PONG {server_addr}\r\n')
+                    msg = f'PONG tmi.twitch.tv\r\n'
+                    print(msg)
+                    irc.send(msg.encode())
