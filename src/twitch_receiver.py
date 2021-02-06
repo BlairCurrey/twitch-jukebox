@@ -67,8 +67,5 @@ if __name__=="__main__":
                 if message == "play":
                     play()
                 if message[0:4] == "PING" :
-                    # server_addr = message.split()[1]
-                    # irc.send(f'PONG {server_addr}\r\n')
-                    msg = f'PONG tmi.twitch.tv\r\n'
-                    print(msg)
-                    irc.send(msg.encode())
+                    server_addr = message.split()[1]
+                    irc.send(f'PONG {server_addr}\r\n')
