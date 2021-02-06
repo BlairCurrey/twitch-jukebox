@@ -1,0 +1,6 @@
+SERVER="irc.twitch.tv"
+PORT="6667"
+OAUTH=twitchoauthtoken
+BOT_NAME=botname
+CHANNEL=channeltarget
+OWNER=channelowner
