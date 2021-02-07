@@ -60,12 +60,15 @@ if __name__=="__main__":
             if line == "":
                 continue
             else:
-                message = get_message(line) 
-                print(f'{get_user(line)}: {message}')
-                if message == "pause":
-                    pause()
-                if message == "play":
-                    play()
-                if message[0:4] == "PING" :
-                    server_addr = message.split()[1]
-                    irc.send(f'PONG {server_addr}\r\n')
+                if line.startswith('PING'):
+                    print(line)
+                    res = "PONG :tmi.twitch.tv\r\n"
+                    irc.send(res.encode())
+                    print(res)
+                else:
+                    message = get_message(line)
+                    print(f'{get_user(line)}: {message}')
+                    if message == "pause":
+                        pause()
+                    if message == "play":
+                        play()
