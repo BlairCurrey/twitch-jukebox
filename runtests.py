@@ -1,9 +1,14 @@
+# Standard library imports
 import unittest
-from tests import t_cmus_controller
+
+# Local imports
+from tests import test_cmus_controller
+from tests import test_bot
 
 if __name__=="__main__":
     test_sets = [
-        t_cmus_controller.TestSet()
+        test_cmus_controller.CmusControllerTestSet(),
+        test_bot.BotTestSet()
     ]
     for t in test_sets:
-        unittest.main(t,verbosity=2)
+        unittest.main(t,verbosity=2,exit=False)
