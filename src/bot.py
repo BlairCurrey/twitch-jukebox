@@ -1,6 +1,9 @@
+# Standard library imports
 import socket
 import traceback
-from cmus_controller import CmusController
+
+# Local imports
+from .cmus_controller import CmusController
 
 class Bot:
     def __init__(self, name, oauth, channel):

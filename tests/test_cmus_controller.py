@@ -1,14 +1,19 @@
+# Standard library imports
+import sys
 import unittest
+
+# Local imports
 from src.cmus_controller import CmusController
 
-class TestSet(unittest.TestCase):
+
+class CmusControllerTestSet(unittest.TestCase):
     
     """
     Assumes cmus is playing before starting tests
     """
 
     def __init__(self, *args, **kwargs):
-        super(TestSet, self).__init__(*args, **kwargs)
+        super(CmusControllerTestSet, self).__init__(*args, **kwargs)
         self.playing = 'playing'
         self.paused = 'paused'
         self.cmus_controller = CmusController()
@@ -30,7 +35,7 @@ class TestSet(unittest.TestCase):
     """
     Play
     """
-    def test_4_play(self):
+    def test_3_play(self):
         self.cmus_controller.play()
         status = self.cmus_controller.status()
         self.assertEqual(status, self.playing)
@@ -38,7 +43,7 @@ class TestSet(unittest.TestCase):
     """
     Raw command
     """
-    def test_5_raw_command(self):
+    def test_4_raw_command(self):
         self.cmus_controller.raw_command('player-play')
         status = self.cmus_controller.status()
         self.assertEqual(status, self.playing)

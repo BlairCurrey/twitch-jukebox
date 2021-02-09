@@ -1,6 +1,11 @@
-from dotenv import load_dotenv
+# Standard library imports
 import os
-from bot import Bot
+
+# Third-party imports
+from dotenv import load_dotenv
+
+# Local imports
+from src.bot import Bot
 
 load_dotenv()
 
