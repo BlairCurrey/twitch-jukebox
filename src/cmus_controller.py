@@ -1,8 +1,10 @@
+# Standard library imports
 import subprocess
+from pathlib import Path
 
 class CmusController:
     
-    song_path = '../songs'
+    song_path = Path('songs')
 
     def __init__(self):
         pass
@@ -28,7 +30,7 @@ class CmusController:
         subprocess.call(['cmus-remote', '-n'])
 
     def add(self, song):
-        path = f'{self.song_path}/{song}'
+        path = self.song_path / song
         subprocess.call(['cmus-remote', '-q', path])
 
     def raw_command(self, text):
