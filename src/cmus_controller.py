@@ -1,42 +1,28 @@
-# Standard library imports
-import subprocess
-from pathlib import Path
+# Standar library imports
+import traceback
+
+# Local imports
+from .commands import Commands
 
 class CmusController:
-    
-    song_path = Path('songs')
-
     def __init__(self):
-        pass
+        self.commands = Commands()
+    
+    def process(self, command):
+        command = command.strip()
 
-    def status(self):
-        # need to make this it's own module if I start
-        # digging in here for more lines other than status
-        result = subprocess.run(['cmus-remote', '-Q'], stdout=subprocess.PIPE)
-        result_lines = result.stdout.decode('utf-8').splitlines()
-        status = result_lines[0].split("status ")[1]
-        return status
-
-    def pause(self):
-        subprocess.call(['cmus-remote', '-U'])
-
-    def play(self):
-        subprocess.call(['cmus-remote', '-p'])
-
-    def stop(self):
-        subprocess.call(['cmus-remote', '-s'])
-
-    def next_(self):
-        subprocess.call(['cmus-remote', '-n'])
-
-    def add(self, song):
-        path = self.song_path / song
-        subprocess.call(['cmus-remote', '-q', path])
-
-    def raw_command(self, text):
-        """
-        Equivalent to entering command into focused cmus.
-        For testing/example purposes only - Do not let users pass 
-        text to this function.
-        """
-        subprocess.call(['cmus-remote', '-C', f'{text}'])
+        if command == "!pause":
+            self.commands.pause()
+        if command == "!play":
+            self.commands.play()
+        if command == "!stop":
+            self.commands.stop()
+        if command == "!next":
+            self.commands.next_()
+        if command.startswith("!add"):
+            try:
+                arg = command.split("\"")[1]
+                self.commands.add(arg)
+            except Exception as exc:
+                print(traceback.format_exc())
+                print(exc)
