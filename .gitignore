@@ -1,7 +1,16 @@
+# song
 /songs
 /songs-complete
+
+# environment
 *__pycache__
-cmus-man.txt
 *.env
+
+# Miscellaneous
+cmus-man.txt
 scribbles.py
 notes.txt
+
+# Unused modules used for testing
+event.py
+observer.py
