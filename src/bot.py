@@ -1,9 +1,9 @@
 # Standard library imports
 import socket
-import traceback
 
 # Local imports
 from .cmus_controller import CmusController
+from .message import Message
 
 class Bot:
     def __init__(self, name, oauth, channel):
@@ -24,24 +24,10 @@ class Bot:
                 self.socket.send(res.encode())
                 print(f'>> {res}')
             else:
-                user, message = self._get_user_and_message(line)
-                print(f'{user}: {message}')
-                if user == self.channel:
-                    if message == "!pause":
-                        self.cmus_controller.pause()
-                    if message == "!play":
-                        self.cmus_controller.play()
-                    if message == "!stop":
-                        self.cmus_controller.stop()
-                    if message == "!next":
-                        self.cmus_controller.next_()
-                    if message.startswith("!add"):
-                        try:
-                            arg = message.split("\"")[1]
-                            self.cmus_controller.add(arg)
-                        except Exception as exc:
-                            print(traceback.format_exc())
-                            print(exc)
+                msg = Message(line)
+                print(f'{msg.user}: {msg.body}')
+                if msg.isCommand:
+                    self.cmus_controller.process(msg.body)
 
     def connect(self, server, port):
         self.socket.connect((server, port))
@@ -67,11 +53,3 @@ class Bot:
     def _send_message(self, message):
         message = (f'PRIVMSG #{self.channel} :{message}\n').encode()
         self.socket.send(message)
-
-    def _get_user_and_message(self, line):
-        user = line.split('!')[0].replace(':', '')
-        message = line.split(':')[-1]
-        return user, message
-
-if __name__=="__main__":
-    pass
