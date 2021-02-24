@@ -19,22 +19,22 @@ class CmusControllerTestSet(unittest.TestCase):
     def test_1_status(self):
         status = self.cmus_controller.commands.status()
         self.assertTrue(status == "paused" or "playing")
-    
-    """
-    Pause
-    """
-    def test_2_pause(self):
-        self.cmus_controller.process("!pause")
-        status = self.cmus_controller.commands.status()
-        self.assertEqual(status, "paused")
 
     """
     Play
     """
-    def test_3_play(self):
+    def test_2_play(self):
         self.cmus_controller.process("!play")
         status = self.cmus_controller.commands.status()
         self.assertEqual(status, "playing")
+
+    """
+    Pause
+    """
+    def test_3_pause(self):
+        self.cmus_controller.process("!pause")
+        status = self.cmus_controller.commands.status()
+        self.assertEqual(status, "paused")
 
     """
     Raw command
