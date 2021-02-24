@@ -1,4 +1,5 @@
 /songs
+/songs-complete
 *__pycache__
 cmus-man.txt
 *.env
